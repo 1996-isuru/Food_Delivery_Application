@@ -1,10 +1,24 @@
-import React from 'react';
-import Main from './src/main';
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
 
-export default function App() {
+import { Home, Restaurant, OrderDelivery } from "./screens";
+
+const Stack = createStackNavigator();
+
+const App = () => {
   return (
-    <Main />
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOption={{
+          headerShown: false,
+        }}
+        initialRouteName={"Home"}
+      >
+      <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-
+export default App;
