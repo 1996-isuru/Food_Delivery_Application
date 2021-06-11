@@ -9,7 +9,7 @@ npm-debug.*
 *.orig.*
 web-build/
 testingIgnore
-constants/maps
+constants/maps.js
 
 # macOS
 .DS_Store
