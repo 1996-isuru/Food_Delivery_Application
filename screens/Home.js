@@ -8,7 +8,6 @@ import {
   Image,
   FlatList,
 } from "react-native";
-// import { FlatList } from "react-native-gesture-handler";
 import { COLORS, icons, images, SIZES, FONTS } from "../constants";
 
 //dummy data start
@@ -334,6 +333,15 @@ const Home = () => {
     initialCurrentLocation
   );
 
+  function onSelectCategory(category) {
+    //filter restourant
+    let restaurantList = restaurantData.filter((a) =>
+      a.categories.includes(category.id)
+    );
+    setRestaurants(restaurantList);
+    setSelectedCategory(category);
+  }
+
   //renderheader function statrt
   function renderHeader() {
     return (
@@ -417,6 +425,7 @@ const Home = () => {
             marginRight: SIZES.padding,
             ...styles.shadow,
           }}
+          onPress={() => onSelectCategory(item)}
         >
           <View
             style={{
@@ -471,12 +480,66 @@ const Home = () => {
       </View>
     );
   }
+  // renderMainCategories function over
+
+  //renderRestaurantList function
+
+  function renderRestaurantList() {
+    const renderItem = ({ item }) => (
+      <TouchableOpacity style={{ marginBottom: SIZES.padding * 2 }}>
+        {/* Image */}
+        <View
+          style={{
+            marginBottom: SIZES.padding,
+          }}
+        >
+          <Image
+            source={item.photo}
+            resizeMode="cover"
+            style={{
+              width: "100%",
+              height: 200,
+              borderRadius: SIZES.radius,
+            }}
+          />
+
+          <View
+            style={{
+              position: "absolute",
+              bottom: 0,
+              height: 50,
+              width: SIZES.width * 0.3,
+              backgroundColor: COLORS.white,
+              borderTopRightRadius: SIZES.radius,
+              borderBottomEndRadius: SIZES.radius,
+              alignItems: "center",
+              justifyContent: "center",
+              ...styles.shadow
+            }}
+          >
+            <Text style={{ ...FONTS.h4 }}>{item.duration}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+
+    return (
+      <FlatList
+        data={restaurants}
+        keyExtractor={(item) => `${item.id}`}
+        renderItem = {renderItem}
+        contentContainerStyl =
+        {{ paddingHorizontal: SIZES.padding * 2, paddingBottom: 30 }}
+      />
+    );
+  }
 
   //main return
   return (
     <SafeAreaView style={styles.container}>
       {renderHeader()}
       {renderMainCategories()}
+      {renderRestaurantList()}
     </SafeAreaView>
   );
 };
