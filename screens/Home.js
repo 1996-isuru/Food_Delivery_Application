@@ -342,6 +342,13 @@ const Home = () => {
     setSelectedCategory(category);
   }
 
+  function getCategoryNameById(id) {
+    let category = categories.filter(a => a.id == id);
+    if (category.length > 0) return category[0].name;
+    
+    return "";
+  }
+
   //renderheader function statrt
   function renderHeader() {
     return (
@@ -514,11 +521,73 @@ const Home = () => {
               borderBottomEndRadius: SIZES.radius,
               alignItems: "center",
               justifyContent: "center",
-              ...styles.shadow
+              ...styles.shadow,
             }}
           >
             <Text style={{ ...FONTS.h4 }}>{item.duration}</Text>
           </View>
+        </View>
+
+        {/* restaurant info */}
+        <Text style={{ ...FONTS.h4 }}>{item.name}</Text>
+
+        <View
+          style={{
+            marginTop: SIZES.padding,
+            flexDirection: "row",
+          }}
+        >
+          {/* rating */}
+          <Image
+            source={icons.star}
+            style={{
+              height: 20,
+              width: 20,
+              tintColor: COLORS.primary,
+              marginRight: 10,
+            }}
+          />
+          <Text style={{ ...FONTS.body3 }}>{item.rating}</Text>
+
+          {/* Category label */}
+          <View
+            style={{
+              flexDirection: "row",
+              marginLeft: 10,
+            }}
+          >
+            {item.categories.map((categoryId) => {
+              return (
+                <View style={{ flexDirection: "row" }} key={categoryId}>
+                  <Text style={{ ...FONTS.body3 }}>
+                    {getCategoryNameById(categoryId)}
+                  </Text>
+                  <Text style={{ ...FONTS.h3, color: COLORS.darkgray }}>.</Text>
+                </View>
+              );
+            })}
+          </View>
+
+          {/* price */}
+            <View
+            style={{
+              flexDirection: "row",
+            }}>
+              {
+                [1, 2, 3].map((priceRating) =>(
+                  <Text
+                  key={priceRating}
+                  style={{
+                    ...FONTS.body3,
+                    color: (priceRating <= item.priceRating) ? COLORS.black : COLORS.darkgray
+                  }}
+                  >$
+ 
+                  </Text>
+                ))
+              }
+            </View>
+
         </View>
       </TouchableOpacity>
     );
@@ -527,9 +596,11 @@ const Home = () => {
       <FlatList
         data={restaurants}
         keyExtractor={(item) => `${item.id}`}
-        renderItem = {renderItem}
-        contentContainerStyl =
-        {{ paddingHorizontal: SIZES.padding * 2, paddingBottom: 30 }}
+        renderItem={renderItem}
+        contentContainerStyl={{
+          paddingHorizontal: SIZES.padding * 2,
+          paddingBottom: 30,
+        }}
       />
     );
   }
