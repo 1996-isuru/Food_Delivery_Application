@@ -325,7 +325,7 @@ const restaurantData = [
 
 //dummy data over
 
-const Home = () => {
+const Home = ({Navigation}) => {
   const [categories, setCategories] = useState(categoryData);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [restaurants, setRestaurants] = useState(restaurantData);
@@ -343,9 +343,9 @@ const Home = () => {
   }
 
   function getCategoryNameById(id) {
-    let category = categories.filter(a => a.id == id);
+    let category = categories.filter((a) => a.id == id);
     if (category.length > 0) return category[0].name;
-    
+
     return "";
   }
 
@@ -493,7 +493,13 @@ const Home = () => {
 
   function renderRestaurantList() {
     const renderItem = ({ item }) => (
-      <TouchableOpacity style={{ marginBottom: SIZES.padding * 2 }}>
+      <TouchableOpacity 
+        style={{ marginBottom: SIZES.padding * 2 }}
+        onPress={() => Navigation.navigate("Restaurant", {
+          item,
+          currentLocation
+        })}  
+      >
         {/* Image */}
         <View
           style={{
@@ -569,25 +575,26 @@ const Home = () => {
           </View>
 
           {/* price */}
-            <View
+          <View
             style={{
               flexDirection: "row",
-            }}>
-              {
-                [1, 2, 3].map((priceRating) =>(
-                  <Text
-                  key={priceRating}
-                  style={{
-                    ...FONTS.body3,
-                    color: (priceRating <= item.priceRating) ? COLORS.black : COLORS.darkgray
-                  }}
-                  >$
- 
-                  </Text>
-                ))
-              }
-            </View>
-
+            }}
+          >
+            {[1, 2, 3].map((priceRating) => (
+              <Text
+                key={priceRating}
+                style={{
+                  ...FONTS.body3,
+                  color:
+                    priceRating <= item.priceRating
+                      ? COLORS.black
+                      : COLORS.darkgray,
+                }}
+              >
+                $
+              </Text>
+            ))}
+          </View>
         </View>
       </TouchableOpacity>
     );
