@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- <div class="sticky">I will stick to the screen when you reach my scroll position</div> -->
+    
+    <header class="header">
+        <div class="logo">
+            <h1 class="logo">Company Logo</h1>
+        </div>
+        
+        <div class="topnav">
+            <h2 class="company">Company Name</h2>
+    
+            <nav>
+                <ul>
+                    <li><a href="#" id= "home" id="active" >Home</a></li>
+                    <li><a href="#" id= "about" >About Ud</a></li>
+                    <li><a href="#" id= "product">products</a></li>
+                    <li><a href="#" id= "service">Services</a></li>
+                    <li><a href="#" id= "contact">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="loading">
+            <img src="img/loading.gif" alt="Loading">
+        </div>
+        
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.4/jquery.sticky.min.js" integrity="sha512-QABeEm/oYtKZVyaO8mQQjePTPplrV8qoT7PrwHDJCBLqZl5UmuPi3APEcWwtTNOiH24psax69XPQtEo5dAkGcA==" crossorigin="anonymous"></script>
+        
+    <script>
+        $(document).ready(function(){
+            $('.topnav').sticky();
+        });
+    </script>
+
+    <style>
+        nav ul li a.active{ color: red; border-bottom: 2px solid red;}
+    </style>
+</body>
+</html>

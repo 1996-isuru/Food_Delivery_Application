@@ -1,0 +1,6 @@
+<h2>This is from content.php</h2>
+<p class="display">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ducimus velit autem unde assumenda placeat in, eaque est quas fuga voluptatum nihil, nulla pariatur facere, sed eum ratione beatae magni.</p>
+<p>Amet fuga eos debitis recusandae accusantium! Delectus molestiae facere recusandae blanditiis facilis ullam veritatis id, perferendis beatae aspernatur a distinctio repellat, minus nostrum qui sint! Voluptatem accusamus placeat sit quibusdam!</p>
+<p>Laudantium autem amet eius obcaecati exercitationem fuga labore assumenda velit! Magni amet ab unde consequuntur debitis, assumenda dolorem quasi porro vero qui, minus quod quibusdam perferendis culpa hic numquam veniam!</p>
+<p>Explicabo quidem tempora obcaecati temporibus iusto amet non distinctio a quod aperiam sunt nam minima ipsam exercitationem libero omnis animi quas voluptatem iure, rem similique accusamus. Rem unde tempore voluptates.</p>
+<p>Rem earum explicabo aliquam nostrum. Tempora nulla consequatur dolorem aliquam iure quam voluptatum maxime officia magni omnis. Doloribus reprehenderit cumque earum doloremque quis assumenda fugit! Dolorum quia sit accusamus neque?</p>
