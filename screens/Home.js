@@ -325,7 +325,7 @@ const restaurantData = [
 
 //dummy data over
 
-const Home = ({Navigation}) => {
+const Home = ({ navigation }) => {
   const [categories, setCategories] = useState(categoryData);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [restaurants, setRestaurants] = useState(restaurantData);
@@ -495,12 +495,13 @@ const Home = ({Navigation}) => {
     const renderItem = ({ item }) => (
       <TouchableOpacity 
         style={{ marginBottom: SIZES.padding * 2 }}
-        onPress={() => Navigation.navigate("Restaurant", {
+        onPress={() => { navigation.navigate('Restaurant', {
           item,
           currentLocation
-        })}  
+        })
+        }}  
       >
-        {/* Image */}
+        {/* Image */} 
         <View
           style={{
             marginBottom: SIZES.padding,
