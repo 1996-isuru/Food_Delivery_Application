@@ -381,7 +381,7 @@ const Home = ({ navigation }) => {
         >
           <View
             style={{
-              width: "70%",
+              width: "80%",
               height: "100%",
               backgroundColor: COLORS.lightGray,
               alignItems: "center",
@@ -400,10 +400,11 @@ const Home = ({ navigation }) => {
             marginRight: SIZES.padding,
             justifyContent: "center",
             paddingTop: 55,
+            paddingLeft: 20,
           }}
         >
           <Image
-            source={icons.basket}
+            source={icons.list}
             resizeMode="contain"
             style={{
               width: 30,

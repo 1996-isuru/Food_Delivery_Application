@@ -56,7 +56,7 @@ const Restaurant = ({ route, navigation }) => {
         >
           <View
             style={{
-              width: "70%",
+              width: "80%",
               height: "10%",
               backgroundColor: COLORS.lightGray,
               alignItems: "center",
@@ -68,6 +68,26 @@ const Restaurant = ({ route, navigation }) => {
             <Text style={{ ...FONTS.h3, paddingBottom: 40 }}>{restaurant?.name}</Text>
           </View>
         </View>
+
+        <TouchableOpacity
+          style={{
+            width: 50,
+            padding: SIZES.padding * 2,
+            justifyContent: "center",
+            paddingTop: 40,
+            paddingLeft: 10,
+          }}
+          onPress={() => navigation.goBack()}
+        >
+          <Image
+            source={icons.list}
+            resizeMode="contain"
+            style={{
+              width: 30,
+              height: 30,
+            }}
+          />
+        </TouchableOpacity>
 
       </View>
     );
