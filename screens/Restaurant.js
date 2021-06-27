@@ -1,29 +1,78 @@
-import { styleSheets } from "min-document";
 import React from "react";
 import {
+  StyleSheet,
   SafeAreaView,
   View,
   Text,
-  StyleSheet,
-  TouchableOpacity,
   TouchableOpacity,
   Image,
   Animated,
 } from "react-native";
 import { isIphoneX } from "react-native-iphone-x-helper";
-import { COLORS, icons, images, SIZES, FONTS } from "../constants";
+
+import { icons, COLORS, SIZES, FONTS } from "../constants";
 
 const Restaurant = ({ route, navigation }) => {
   const scrollX = new Animated.Value(0);
-  const [restaurant, setRestaurants] = React.useState(null);
+  const [restaurant, setRestaurant] = React.useState(null);
   const [currentLocation, setCurrentLocation] = React.useState(null);
+  const [orderItems, setOrderItems] = React.useState([]);
 
   React.useEffect(() => {
     let { item, currentLocation } = route.params;
 
-    setRestaurants(item);
+    setRestaurant(item);
     setCurrentLocation(currentLocation);
   });
+
+  function editOrder(action, menuId, price) {
+    let orderList = orderItems.slice();
+    let item = orderList.filter((a) => a.menuId == menuId);
+
+    if (action == "+") {
+      if (item.length > 0) {
+        let newQty = item[0].qty + 1;
+        item[0].qty = newQty;
+        item[0].total = item[0].qty * price;
+      } else {
+        const newItem = {
+          menuId: menuId,
+          qty: 1,
+          price: price,
+          total: price,
+        };
+        orderList.push(newItem);
+      }
+
+      setOrderItems(orderList);
+    } else {
+      if (item.length > 0) {
+        if (item[0]?.qty > 0) {
+          let newQty = item[0].qty - 1;
+          item[0].qty = newQty;
+          item[0].total = newQty * price;
+        }
+      }
+
+      setOrderItems(orderList);
+    }
+  }
+
+  function getOrderQty(menuId) {
+    let orderItem = orderItems.filter((a) => a.menuId == menuId);
+
+    if (orderItem.length > 0) {
+      return orderItem[0].qty;
+    }
+
+    return 0;
+  }
+
+  function getBasketItemCount() {
+    let itemCount = orderItems.reduce((a, b) => a + (b.qty || 0), 0);
+
+    return itemCount;
+  }
 
   function renderHeader() {
     return (
@@ -31,15 +80,14 @@ const Restaurant = ({ route, navigation }) => {
         <TouchableOpacity
           style={{
             width: 50,
-            padding: SIZES.padding * 2,
+            paddingLeft: SIZES.padding * 2,
             justifyContent: "center",
-            paddingTop: 40,
           }}
           onPress={() => navigation.goBack()}
         >
           <Image
             source={icons.back}
-            resizeMode="center"
+            resizeMode="contain"
             style={{
               width: 30,
               height: 30,
@@ -47,41 +95,34 @@ const Restaurant = ({ route, navigation }) => {
           />
         </TouchableOpacity>
 
-        {/* restaurant name section */}
+        {/* Restaurant Name Section */}
         <View
           style={{
             flex: 1,
             alignItems: "center",
             justifyContent: "center",
-            paddingTop: 20,
           }}
         >
           <View
             style={{
-              width: "80%",
-              height: "10%",
-              backgroundColor: COLORS.lightGray,
+              height: 50,
               alignItems: "center",
               justifyContent: "center",
+              paddingHorizontal: SIZES.padding * 3,
               borderRadius: SIZES.radius,
-              paddingTop: 45,
+              backgroundColor: COLORS.lightGray3,
             }}
           >
-            <Text style={{ ...FONTS.h3, paddingBottom: 40 }}>
-              {restaurant?.name}
-            </Text>
+            <Text style={{ ...FONTS.h3 }}>{restaurant?.name}</Text>
           </View>
         </View>
 
         <TouchableOpacity
           style={{
             width: 50,
-            padding: SIZES.padding * 2,
+            paddingRight: SIZES.padding * 2,
             justifyContent: "center",
-            paddingTop: 40,
-            paddingLeft: 10,
           }}
-          onPress={() => navigation.goBack()}
         >
           <Image
             source={icons.list}
@@ -150,12 +191,14 @@ const Restaurant = ({ route, navigation }) => {
                 <View
                   style={{
                     width: 50,
-                    backgroundColor: COLORS.lightGray,
+                    backgroundColor: COLORS.white,
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
-                  <Text style={{ ...FONTS.h2 }}>5</Text>
+                  <Text style={{ ...FONTS.h2 }}>
+                    {getOrderQty(item.menuId)}
+                  </Text>
                 </View>
 
                 <TouchableOpacity
@@ -167,6 +210,7 @@ const Restaurant = ({ route, navigation }) => {
                     borderTopRightRadius: 25,
                     borderBottomRightRadius: 25,
                   }}
+                  onPress={() => editOrder("+", item.menuId, item.price)}
                 >
                   <Text style={{ ...FONTS.body1 }}>+</Text>
                 </TouchableOpacity>
@@ -293,8 +337,10 @@ const Restaurant = ({ route, navigation }) => {
               borderBottomWidth: 1,
             }}
           >
-            <Text style={{ ...FONTS.h3 }}>Item in Cart</Text>
-            <Text style={{ ...FONTS.h3 }}>$45</Text>
+            <Text style={{ ...FONTS.h3 }}>
+              {getBasketItemCount()} items in Cart
+            </Text>
+            <Text style={{ ...FONTS.h3 }}>${sumOrder()}</Text>
           </View>
 
           <View
@@ -315,36 +361,28 @@ const Restaurant = ({ route, navigation }) => {
                   tintColor: COLORS.darkgray,
                 }}
               />
-              <Text
-                style={{
-                  marginLeft: SIZES.padding,
-                  ...FONTS.h4,
-                }}
-              >
+              <Text style={{ marginLeft: SIZES.padding, ...FONTS.h4 }}>
                 Location
               </Text>
             </View>
+
             <View style={{ flexDirection: "row" }}>
               <Image
                 source={icons.master_card}
-                resizeMede="contain"
+                resizeMode="contain"
                 style={{
                   width: 20,
                   height: 20,
                   tintColor: COLORS.darkgray,
                 }}
               />
-              <Text
-                style={{
-                  marginLeft: SIZES.padding,
-                  ...FONTS.h4,
-                }}
-              >
-                88
+              <Text style={{ marginLeft: SIZES.padding, ...FONTS.h4 }}>
+                8888
               </Text>
             </View>
           </View>
-          {/* orderbutton */}
+
+          {/* Order Button */}
           <View
             style={{
               padding: SIZES.padding * 2,
@@ -356,19 +394,18 @@ const Restaurant = ({ route, navigation }) => {
               style={{
                 width: SIZES.width * 0.9,
                 padding: SIZES.padding,
-                padding: COLORS.primary,
+                backgroundColor: COLORS.primary,
                 alignItems: "center",
                 borderRadius: SIZES.radius,
               }}
+              onPress={() =>
+                navigation.navigate("OrderDelivery", {
+                  restaurant: restaurant,
+                  currentLocation: currentLocation,
+                })
+              }
             >
-              <Text
-                style={{
-                  color: COLORS.white,
-                  ...FONTS.h2,
-                }}
-              >
-                Order
-              </Text>
+              <Text style={{ color: COLORS.white, ...FONTS.h2 }}>Order</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -401,17 +438,7 @@ const Restaurant = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.white,
-  },
-  shadow: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 1,
+    backgroundColor: COLORS.lightGray2,
   },
 });
 
