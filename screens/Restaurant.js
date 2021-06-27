@@ -74,6 +74,12 @@ const Restaurant = ({ route, navigation }) => {
     return itemCount;
   }
 
+  function sumOrder() {
+    let total = orderItems.reduce((a, b) => a + (b.total || 0), 0);
+
+    return total.toFixed(2);
+  }
+
   function renderHeader() {
     return (
       <View style={{ flexDirection: "row" }}>
