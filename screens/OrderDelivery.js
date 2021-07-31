@@ -10,8 +10,6 @@ const OrderDelivery = () => {
             <Text>OrderDelivery</Text>
             <Text>CHeck1</Text>
             <Text>CHeck1</Text>
-            <Text>CHeck1</Text>
-            <Text>CHeck1</Text>
         </View>
     )
 }
