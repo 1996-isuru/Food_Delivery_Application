@@ -8,6 +8,8 @@ const OrderDelivery = () => {
     return (
         <View>
             <Text>OrderDelivery</Text>
+            <Text>CHeck1</Text>
+            <Text>CHeck1</Text>
         </View>
     )
 }
