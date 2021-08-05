@@ -181,6 +181,12 @@ const OrderDelivery = ({ route, navigation }) => {
 
   function renderDestinationHeader() {
     return (
+<<<<<<< HEAD
+        <View>
+            <Text>OrderDelivery</Text>
+            <Text>CHeck1</Text>
+            <Text>CHeck1</Text>
+=======
       <View
         style={{
           position: "absolute",
@@ -217,6 +223,7 @@ const OrderDelivery = ({ route, navigation }) => {
           </View>
 
           <Text style={{ ...FONTS.body3 }}>{Math.ceil(duration)} mins</Text>
+>>>>>>> 081d7f74f22acf817932e3d4badc953c1f789d50
         </View>
       </View>
     );
