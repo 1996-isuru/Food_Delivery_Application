@@ -448,4 +448,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Restaurant;
+export default Restauran;
+//checking
