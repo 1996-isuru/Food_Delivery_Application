@@ -448,3 +448,5 @@ const styles = StyleSheet.create({
   },
 });
 
+export default Restauran;
+//checking
