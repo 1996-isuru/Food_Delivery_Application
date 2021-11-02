@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { COLORS, icons, images, SIZES, FONTS } from "../constants";
 
-//dummy data start
+//dummy data startllll
 const initialCurrentLocation = {
   streetName: "Kuching",
   gps: {
